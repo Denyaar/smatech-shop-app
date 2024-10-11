@@ -27,9 +27,8 @@ public class Product {
     @UuidGenerator
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private String id;
-
     private String name;
     private Double price;
-    private String description;
+    private int  quantity;
     private String imageUrl;
 }

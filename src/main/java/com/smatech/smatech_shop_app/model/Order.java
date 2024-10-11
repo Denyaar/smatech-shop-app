@@ -34,6 +34,6 @@ public class Order {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private List<Product> products;
-    private int total;
+    private Double orderTotalAmount;
     private String status;
 }
