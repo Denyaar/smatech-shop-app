@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class ProductController {
     @Autowired
     private ProductService productService;
