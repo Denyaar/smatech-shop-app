@@ -8,13 +8,22 @@ package com.smatech.smatech_shop_app.controllers;
 
 import com.smatech.smatech_shop_app.model.Product;
 import com.smatech.smatech_shop_app.services.ProductService;
+import com.smatech.smatech_shop_app.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,5 +57,15 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable String id) {
         productService.deleteProduct(id);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadImage(@RequestParam String id, @RequestParam MultipartFile file) {
+        return ResponseEntity.ok(productService.uploadImage(id, file));
+    }
+
+    @GetMapping(value = "/image/{filename}", produces = {IMAGE_PNG_VALUE, IMAGE_JPEG_VALUE})
+    public byte[] getImage(@PathVariable String filename) throws IOException {
+        return Files.readAllBytes(Paths.get(Constants.PHOTO_DIRECTORY_PATH + filename));
     }
 }

@@ -32,8 +32,8 @@ public class Order {
     private User user;
 
     @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
     private List<Product> products;
+
     private Double orderTotalAmount;
     private String status;
 }

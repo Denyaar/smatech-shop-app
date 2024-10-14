@@ -31,4 +31,7 @@ public class Product {
     private Double price;
     private int  quantity;
     private String imageUrl;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id") // Foreign key column in the Product table
+    private Order order;
 }
