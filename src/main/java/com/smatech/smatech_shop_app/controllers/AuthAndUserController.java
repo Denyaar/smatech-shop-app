@@ -15,15 +15,12 @@ import com.smatech.smatech_shop_app.security.PasswordValidator;
 import com.smatech.smatech_shop_app.security.jwt.JwtUtil;
 import com.smatech.smatech_shop_app.services.EmailSenderService;
 import com.smatech.smatech_shop_app.services.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,8 +50,8 @@ public class AuthAndUserController {
 
     private final EmailSenderService emailSenderService;
 
-    public AuthAndUserController(JwtUtil jwtUtil,UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserDetailsService userDetailsService, UserService userService, EmailSenderService emailSenderService) {
-        this.jwtUtil=jwtUtil;
+    public AuthAndUserController(JwtUtil jwtUtil, UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserDetailsService userDetailsService, UserService userService, EmailSenderService emailSenderService) {
+        this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
@@ -69,7 +66,7 @@ public class AuthAndUserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Email Please Try Again"));
 
         try {
-             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
             final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
             final String jwt = jwtUtil.generateToken(userDetails);
@@ -107,7 +104,7 @@ public class AuthAndUserController {
                     .password(passwordEncoder.encode(user.getPassword()))
                     .build();
 
-//            userService.sendEmailRegistration(newUser.getEmail(), newUser.getName());
+            userService.sendEmailRegistration(newUser.getEmail(), newUser.getName());
             return new ResponseEntity<>(userService.registerUser(newUser), HttpStatus.CREATED);
         } else {
             return ResponseEntity.badRequest()

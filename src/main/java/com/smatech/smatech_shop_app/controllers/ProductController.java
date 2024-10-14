@@ -9,6 +9,7 @@ package com.smatech.smatech_shop_app.controllers;
 import com.smatech.smatech_shop_app.model.Product;
 import com.smatech.smatech_shop_app.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,20 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/product/")
+@RequestMapping("/api/product")
+@Slf4j
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Product> getAllProducts() {
+        log.info("*********************getAllProducts");
         return productService.getAllProducts();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
