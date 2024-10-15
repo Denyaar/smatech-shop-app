@@ -6,8 +6,8 @@
 
 package com.smatech.smatech_shop_app.services;
 
-import com.smatech.smatech_shop_app.model.PaymentRequest;
-import com.smatech.smatech_shop_app.model.PaymentResponse;
+import com.smatech.smatech_shop_app.dtos.PaymentRequest;
+import com.smatech.smatech_shop_app.dtos.PaymentResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

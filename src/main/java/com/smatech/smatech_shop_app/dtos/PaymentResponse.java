@@ -4,7 +4,7 @@
  * Time: 9:24 AM
  */
 
-package com.smatech.smatech_shop_app.model;
+package com.smatech.smatech_shop_app.dtos;
 
 import lombok.Data;
 
@@ -12,11 +12,11 @@ import lombok.Data;
 public class PaymentResponse {
     private boolean success;
     private String transactionId;
-    private String error;
+    private String message;
 
     public PaymentResponse(boolean success, String transactionId, String error) {
         this.success = success;
         this.transactionId = transactionId;
-        this.error = error;
+        this.message = error;
     }
 }

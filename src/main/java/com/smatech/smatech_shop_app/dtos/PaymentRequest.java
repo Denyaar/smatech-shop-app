@@ -4,9 +4,12 @@
  * Time: 9:24 AM
  */
 
-package com.smatech.smatech_shop_app.model;
+package com.smatech.smatech_shop_app.dtos;
 
+import com.smatech.smatech_shop_app.model.Product;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class PaymentRequest {
@@ -15,4 +18,6 @@ public class PaymentRequest {
     private String expiryMonth;
     private String expiryYear;
     private String cvv;
+    private List<Product> products;
+    private double total;
 }
