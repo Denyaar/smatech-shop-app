@@ -9,6 +9,7 @@ package com.smatech.smatech_shop_app.controllers;
 import com.smatech.smatech_shop_app.dtos.JwtResponse;
 import com.smatech.smatech_shop_app.dtos.LoginRequest;
 import com.smatech.smatech_shop_app.dtos.MessageResponse;
+import com.smatech.smatech_shop_app.dtos.PasswordResetRequest;
 import com.smatech.smatech_shop_app.model.User;
 import com.smatech.smatech_shop_app.repository.UserRepository;
 import com.smatech.smatech_shop_app.security.PasswordValidator;
@@ -29,10 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -119,6 +117,20 @@ public class AuthAndUserController {
 
     }
 
+    @PostMapping("/password-reset")
+    public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest passwordResetRequest )
+    {
+        Optional<User> user = userRepository.findByEmail(passwordResetRequest.getEmail());
+        if (user.isPresent()) {
+            user.get().setPassword(passwordEncoder.encode(passwordResetRequest.getPassword()));
+            userRepository.save(user.get());
+            return ResponseEntity.ok(new MessageResponse("Password reset successful!"));
+        } else {
+            return ResponseEntity.badRequest()
+                   .body(new MessageResponse
+                            ("Error: Email not found!"));
+        }
+    }
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
