@@ -117,7 +117,7 @@ public class AuthAndUserController {
 
     }
 
-    @PostMapping("/password-reset")
+    @PostMapping("/auth/password-reset")
     public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequest passwordResetRequest )
     {
         Optional<User> user = userRepository.findByEmail(passwordResetRequest.getEmail());
