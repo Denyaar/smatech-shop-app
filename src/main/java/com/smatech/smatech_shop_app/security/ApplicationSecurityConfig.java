@@ -37,7 +37,9 @@ public class ApplicationSecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/api/user/auth/**").permitAll()
+                        requests.requestMatchers("/api/user/auth/**",
+                                        "api/user/auth/password-reset")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
