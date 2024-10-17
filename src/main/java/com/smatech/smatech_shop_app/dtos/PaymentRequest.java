@@ -8,10 +8,12 @@ package com.smatech.smatech_shop_app.dtos;
 
 import com.smatech.smatech_shop_app.model.Product;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Data
+@RequiredArgsConstructor
 public class PaymentRequest {
     private Double amount;
     private String cardNumber;
